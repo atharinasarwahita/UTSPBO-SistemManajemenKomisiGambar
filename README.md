@@ -4,7 +4,7 @@
 
 ## 1. Deskripsi Proyek
 
-**Sistem Manajemen Komisi Gambar** adalah aplikasi berbasis Pemrograman Berbasis Objek (PBO) yang dirancang untuk mempermudah seniman (*artist*) dan klien dalam mengelola alur kerja komisi seni digital secara terstruktur.
+  **Sistem Manajemen Komisi Gambar** adalah aplikasi berbasis Pemrograman Berbasis Objek (PBO) yang dirancang untuk mempermudah seniman (*artist*) dan klien dalam mengelola alur kerja komisi seni digital secara terstruktur.
 
 ## 2. Penerapan 4 Elemen Wajib Pemrograman
 
@@ -13,22 +13,64 @@ Program ini mengimplementasikan 4 pilar utama pemrograman sebagai berikut:
 ### A. Inheritance (Pewarisan)
 Penerapan minimal 2 tipe pewarisan kelas pada program:
 * **Hierarki Artwork:** Class `PersonalUse` dan `CommersialUse` mewarisi properti serta method dari *class* `Artwork`.
+
+  **> Superclass Artwork**
+  
+  <img width="690" height="126" alt="image" src="https://github.com/user-attachments/assets/682a9600-36c5-45d8-a39b-b7b675265a1b" />
+
+  **> Subclass PersonalUse**
+  
+  <img width="688" height="89" alt="image" src="https://github.com/user-attachments/assets/41ac9a17-ea0b-4101-ad73-b17ad2e8eda0" />
+
+  **> Subclass CommersialUse**
+  
+  <img width="687" height="88" alt="image" src="https://github.com/user-attachments/assets/7e0519fa-0acd-493c-85a2-070d5883f47c" />
+
+
 * **Hierarki Pembayaran:** Class `PembayaranDP` dan `PembayaranLunas` mewarisi atribut dan struktur dari *abstract class* `Pembayaran`.
 
-### B. Polymorphism (Polimorfisme)
+  **> Superclass Pembayaran**
+  
+  <img width="688" height="90" alt="image" src="https://github.com/user-attachments/assets/366f8680-4ab6-482b-bba4-b6e6ab39ca18" />
+
+  **> Subclass PembayaranDP**
+  
+  <img width="687" height="71" alt="image" src="https://github.com/user-attachments/assets/e4a7fb73-cdb2-4687-ac4f-ca09ad675d32" />
+
+  **> Subclass PembayaranLunas**
+  
+  <img width="689" height="71" alt="image" src="https://github.com/user-attachments/assets/94a6a88a-6820-4104-a2ac-778b04630ff1" />
+
+
+### B. Polymorphism
 Penerapan *Method Overriding* untuk mendefinisikan ulang perilaku method pada subclass:
 * **Method `hitungTotalHarga()`:** Didefinisikan ulang di `PersonalUse` dan `CommersialUse` untuk menghitung total biaya spesifik sesuai jenis lisensi.
 * **Method `hitungNominalBayar()` & `getStatusPembayaran()`:** Didefinisikan ulang di `PembayaranDP` (menghitung 50%) dan `PembayaranLunas` (menghitung 100%).
 
+  <img width="689" height="196" alt="image" src="https://github.com/user-attachments/assets/bef6afa8-eb0c-40ea-8e25-7076513648da" />
+
+
 ### C. Condition (Percabangan)
 Penggunaan logika percabangan untuk mengontrol alur eksekusi:
-* **`if-else`:** Digunakan pada validasi ID duplikat, pengecekan kuota slot `isSlotFull()`, penentuan jenis lisensi, hingga pengecekan opsi layanan *Express*.
+* **`if-else` (Penentuan Jenis Lisensi Karya):** Digunakan untuk mengecek nilai variabel `jenis`. Jika pengguna memilih `1` (Personal Use), sistem meminta catatan keperluan pribadi dan instansiasi objek `PersonalUse`. Jika `else` (Commercial Use), sistem meminta input biaya lisensi komersial dan instansiasi objek `CommersialUse`.
+
+  <img width="902" height="177" alt="image" src="https://github.com/user-attachments/assets/4d9170ea-9db4-4d36-8b45-a0e2c3e35040" />
+
 * **`switch-case` / `switch expression`:** Digunakan saat menentukan nama paket gaya gambar berdasarkan pilihan angka pengguna (`case 1 -> "Lineart"`, `case 2 -> "Chibi"`, dst).
 
+  <img width="846" height="144" alt="image" src="https://github.com/user-attachments/assets/3227f3ac-1981-4f2a-acef-ccac0ce84b18" />
+
 ### D. Looping (Perulangan)
-Penggunaan struktur iterasi dalam mengolah data:
-* **`for` / `for-each`:** Digunakan dalam `CommisionService` untuk melakukan iterasi pencarian ID unik pada `daftarPesanan`, menampilkan seluruh rincian transaksi pada daftar pesanan, serta menghitung total akumulasi pendapatan pada rekapitulasi.
-* **`while`:** Digunakan pada proses validasi input angka pilihan paket agar pengguna terus diinstruksikan menginputkan pilihan jika input belum valid.
+Penggunaan struktur iterasi dalam mengolah data koleksi dan mengontrol validasi input:
+* **Perulangan `for` / `for-each`:**
+  * **Navigasi Data Koleksi (`daftarPesanan`):** Digunakan pada method `isIdExist()` dan method `tambahPesanan()` untuk mengecek ketersediaan ID pesanan agar tidak terjadi duplikasi.
+    
+    <img width="696" height="145" alt="image" src="https://github.com/user-attachments/assets/5dd94910-ff98-429e-8fa1-e19fea185b2b" />  
+  
+  * **`while`:** Digunakan pada proses validasi input angka pilihan paket agar pengguna terus diinstruksikan menginputkan pilihan jika input belum valid.
+
+    <img width="688" height="95" alt="image" src="https://github.com/user-attachments/assets/9f65972e-573c-4fdf-af22-25c7f6499ab8" />
+
 
 ---
 
@@ -91,7 +133,7 @@ Alur sistem ini dirancang untuk mensimulasikan proses bisnis manajemen komisi ga
 
 ---
 
-## 5. Penjelasan Gambar & Dokumentasi
+## 5. Penjelasan Diagram & Dokumentasi
 
 Section ini berisi diagram arsitektur kelas (*Class Diagram*) serta tangkapan layar (*screenshot*) hasil uji coba sistem.
 
@@ -154,7 +196,7 @@ main
 
   *Deskripsi Gambar:* Menampilkan proses penginputan data pesanan baru.
 
-  <img width="600" height="311" alt="image" src="https://github.com/user-attachments/assets/4e101aaf-d8c0-4507-acd7-421a88e4eecb" />
+  <img width="600" alt="image" src="https://github.com/user-attachments/assets/4e101aaf-d8c0-4507-acd7-421a88e4eecb" />
 
   *Deskripsi Gambar:* Setelah pesanan baru berhasil di-inputkan, sistem akan mencetak output berupa invoice yang berisi data pesanan serta total tagihan pembayaran.
 
@@ -178,10 +220,6 @@ main
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## 6. Kesimpulan
 
-* **Bahasa Pemrograman:** Java
-* **Konsep:** Object-Oriented Programming (OOP)
-* **IDE:** VS Code / NetBeans / IntelliJ IDEA
-
-*Dibuat untuk memenuhi Tugas UTS Pemrograman Berbasis Objek.*
+  Sistem Manajemen Komisi Gambar ini berhasil mengimplementasikan seluruh pilar utama Pemrograman Berbasis Objek (PBO) dalam memodelkan proses bisnis komisi karya digital. Penggunaan konsep *Inheritance* dan *Polymorphism* mempermudah fleksibilitas perhitungan harga berbasis jenis lisensi (*Personal*/*Commercial*) dan skema pembayaran (*DP*/*Lunas*). Didukung oleh logika *Condition* dan *Looping* yang presisi, sistem mampu melakukan validasi data secara otomatis, mengelola kuota *batch*, serta menyajikan rekapitulasi finansial secara efisien, terstruktur, dan akurat.
