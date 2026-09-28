@@ -120,8 +120,7 @@ Alur sistem ini dirancang untuk mensimulasikan proses bisnis manajemen komisi ga
 
 #### 2. Tahap Logika Kalkulasi & Penentuan Harga (*Pricing Calculation*)
 * **Penetapan Tarif Dasar:** Sistem mengambil nilai *base price* berdasarkan jenis karya yang dipilih.
-* **Multiplikator Lisensi:** Jika lisensi bernilai *Commercial Use*, sistem secara otomatis menerapkan pengganda harga (misal: $2 \times$ atau tarif tambahan khusus).
-* **Penyesuaian Kompleksitas:** Tambahan biaya kalkulasi diterapkan secara dinamis jika terdapat permintaan khusus (seperti kerumitan latar belakang atau jumlah karakter tambahan).
+* **Lisensi:** Jika lisensi bernilai *Commercial Use*, sistem secara otomatis menerapkan tambahan harga.
 * **Output Harga:** Sistem menghasilkan rincian (*breakdown*) total biaya transparan yang harus dibayar oleh klien.
 
 #### 3. Tahap Pencatatan & Inisialisasi Antrean (*Queue & Initialization*)
