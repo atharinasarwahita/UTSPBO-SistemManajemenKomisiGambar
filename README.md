@@ -6,16 +6,41 @@
 
 **Sistem Manajemen Komisi Gambar** adalah aplikasi berbasis Pemrograman Berbasis Objek (PBO) yang dirancang untuk mempermudah seniman (*artist*) dan klien dalam mengelola alur kerja komisi seni digital secara terstruktur.
 
-### 2. Fitur Utama
+## 2. Penerapan 4 Elemen Wajib Pemrograman
 
-* **Manajemen Pesanan:** Memproses pendaftaran komisi baru dari klien.
-* **Perhitungan Komisi & Biaya:** Menghitung total harga secara otomatis berdasarkan kompleksitas, jenis lisensi (komersial/personal), dan tingkat kerumitan gambar.
-* **Pelacakan Status Progres:** Memantau tahapan pengerjaan (misal: *Pending*, *Sketching*, *Inking*, *Coloring*, *Completed*).
-* **Penerapan Konsep PBO:** Mengimplementasikan prinsip-prinsip *Encapsulation*, *Inheritance*, *Polymorphism*, dan *Abstraction*.
+Program ini mengimplementasikan 4 pilar utama pemrograman sebagai berikut:
+
+### 1. Inheritance (Pewarisan)
+Penerapan minimal 2 tipe pewarisan kelas pada program:
+* **Hierarki Artwork:** Class `PersonalUse` dan `CommersialUse` mewarisi properti serta method dari *abstract class* `Artwork`.
+* **Hierarki Pembayaran:** Class `PembayaranDP` dan `PembayaranLunas` mewarisi atribut dan struktur dari *abstract class* `Pembayaran`.
+
+### 2. Polymorphism (Polimorfisme)
+Penerapan *Method Overriding* untuk mendefinisikan ulang perilaku method pada subclass:
+* **Method `hitungTotalHarga()`:** Didefinisikan ulang di `PersonalUse` dan `CommersialUse` untuk menghitung total biaya spesifik sesuai jenis lisensi.
+* **Method `hitungNominalBayar()` & `getStatusPembayaran()`:** Didefinisikan ulang di `PembayaranDP` (menghitung 50%) dan `PembayaranLunas` (menghitung 100%).
+
+### 3. Condition (Percabangan)
+Penggunaan logika percabangan untuk mengontrol alur eksekusi:
+* **`if-else`:** Digunakan pada validasi ID duplikat, pengecekan kuota slot `isSlotFull()`, penentuan jenis lisensi, hingga pengecekan opsi layanan *Express*.
+* **`switch-case` / `switch expression`:** Digunakan saat menentukan nama paket gaya gambar berdasarkan pilihan angka pengguna (`case 1 -> "Lineart"`, `case 2 -> "Chibi"`, dst).
+
+### 4. Looping (Perulangan)
+Penggunaan struktur iterasi dalam mengolah data:
+* **`for` / `for-each`:** Digunakan dalam `CommisionService` untuk melakukan iterasi pencarian ID unik pada `daftarPesanan`, menampilkan seluruh rincian transaksi pada daftar pesanan, serta menghitung total akumulasi pendapatan pada rekapitulasi.
+* **`while`:** Digunakan pada proses validasi input angka pilihan paket agar pengguna terus diinstruksikan menginputkan pilihan jika input belum valid.
 
 ---
 
-## 3. Alur Sistem Program
+### 3. Fitur Utama
+
+* **Manajemen Pesanan:** Memproses pendaftaran komisi baru dari klien.
+* **Perhitungan Komisi & Biaya:** Menghitung total harga secara otomatis berdasarkan kompleksitas, jenis lisensi (komersial/personal), dan tingkat kerumitan gambar.
+* **Rekapitulasi Pendapatan:** Menghitung total pendapatan selama 1 batch, meliputi pembayran secara DP maupun lunas. Serta memberikan estimasi pendapatan (jika semua sudah lunas)
+
+---
+
+## 4. Alur Sistem Program
 
 Alur sistem ini dirancang untuk mensimulasikan proses bisnis manajemen komisi gambar secara menyeluruh, mulai dari penerimaan pesanan hingga tahap penyelesaian.
 
@@ -68,7 +93,7 @@ Alur sistem ini dirancang untuk mensimulasikan proses bisnis manajemen komisi ga
 
 ---
 
-## 4. Penjelasan Gambar & Dokumentasi
+## 5. Penjelasan Gambar & Dokumentasi
 
 Section ini berisi diagram arsitektur kelas (*Class Diagram*) serta tangkapan layar (*screenshot*) hasil uji coba sistem.
 
@@ -76,12 +101,44 @@ Section ini berisi diagram arsitektur kelas (*Class Diagram*) serta tangkapan la
 
 Diagram ini menggambarkan struktur Pemrograman Berbasis Objek (PBO) yang diterapkan dalam aplikasi.
 
-> ⚠️ **[CATATAN LOKASI GAMBAR]**: Letakkan file gambar diagram kelas pada direktori `docs/class-diagram.png`.
+```
+          +-------------------+                             +-------------------+
+          |      Artwork      | (Superclass)                |    Pembayaran     | (Superclass)
+          +-------------------+                             +-------------------+
+                    |                                                |
+    +---------------+---------------+                     +----------+------------+
+    |                               |                     |                       |
++---------------+           +-----------------+    +---------------+       +------------------+
+|  PersonalUse  |           |  CommersialUse  |    |  PembayaranDP |       |  PembayaranLunas |
++---------------+           +-----------------+    +---------------+       +------------------+
+   (Subclass)                   (Subclass)              (Subclass)               (Subclass)
+
+models
+├── Customer.java       (Model data pelanggan: nama & no hp)
+├── Artwork.java        (Superclass/Abstract: judul, gaya gambar, & harga dasar)
+├── PersonalUse.java    (Subclass dari Artwork: spesifik penggunaan pribadi)
+├── CommersialUse.java  (Subclass dari Artwork: spesifik lisensi komersial)
+├── Pembayaran.java     (Superclass/Abstract: kalkulasi pembayaran)
+├── PembayaranDP.java   (Subclass dari Pembayaran: skema DP 50%)
+├── PembayaranLunas.java(Subclass dari Pembayaran: skema pelunasan 100%)
+└── CommisionOrder.java (Menggabungkan Customer, Artwork, & Pembayaran)
+
+controller
+├── CommisionService.java (Manajemen penyimpanan list order, slot batch, & rekap)
+└── ValidasiInput.java   (Handling dan validasi input data)
+
+main
+└── Main.java           (Menu utama & kontrol alur program/entry point)
+```
 
 * **Penjelasan Class Diagram:**
-  * `Komisi` (*Abstract Class/Superclass*): Menyimpan atribut dasar seperti ID Pesanan, Nama Klien, dan Harga Dasar.
-  * `KomisiPersonal` / `KomisiKomersial` (*Subclass*): Turunan dari kelas `Komisi` yang memiliki perhitungan tarif spesifik berdasarkan lisensi.
-  * `StatusEnum`: Mengelola konstanta status progres pengerjaan komisi (*Pending*, *Sketching*, *Coloring*, *Completed*).
+  * `Artwork` (Superclass): Menyimpan atribut dasar karya seperti judul, gaya gambar, dan harga dasar, serta mendefinisikan metode abstrak untuk kalkulasi harga.
+  * `PersonalUse` / `CommersialUse` (Subclass): Turunan dari kelas Artwork yang memiliki perhitungan tarif spesifik berdasarkan jenis lisensi (penggunaan pribadi atau hak komersial).
+  * `Pembayaran` (Abstract Class/Superclass): Kelas abstrak pengelolaan skema pembayaran yang menghitung nominal bayar berdasarkan total tagihan.
+  * `PembayaranDP` / `PembayaranLunas` (Subclass): Turunan dari kelas Pembayaran untuk memproses pembayaran awal (DP 50%) maupun pelunasan penuh (100%).
+  * `Customer`: Mengelola data identitas pemesan seperti nama dan nomor telepon.
+  * `CommisionOrder`: Kelas entitas utama yang menghubungkan (aggregation/composition) data pelanggan, karya gambar, dan status pembayaran ke dalam satu objek pesanan.
+  * `CommisionService`: Kelas controller untuk menangani logika bisnis, seperti validasi kuota batch (maksimal 3 slot), pembuatan ID unik, penambahan pesanan, serta rekapitulasi pendapatan.
 
 ---
 
