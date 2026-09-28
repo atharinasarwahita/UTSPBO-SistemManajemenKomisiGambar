@@ -10,22 +10,22 @@
 
 Program ini mengimplementasikan 4 pilar utama pemrograman sebagai berikut:
 
-### 1. Inheritance (Pewarisan)
+### A. Inheritance (Pewarisan)
 Penerapan minimal 2 tipe pewarisan kelas pada program:
-* **Hierarki Artwork:** Class `PersonalUse` dan `CommersialUse` mewarisi properti serta method dari *abstract class* `Artwork`.
+* **Hierarki Artwork:** Class `PersonalUse` dan `CommersialUse` mewarisi properti serta method dari *class* `Artwork`.
 * **Hierarki Pembayaran:** Class `PembayaranDP` dan `PembayaranLunas` mewarisi atribut dan struktur dari *abstract class* `Pembayaran`.
 
-### 2. Polymorphism (Polimorfisme)
+### B. Polymorphism (Polimorfisme)
 Penerapan *Method Overriding* untuk mendefinisikan ulang perilaku method pada subclass:
 * **Method `hitungTotalHarga()`:** Didefinisikan ulang di `PersonalUse` dan `CommersialUse` untuk menghitung total biaya spesifik sesuai jenis lisensi.
 * **Method `hitungNominalBayar()` & `getStatusPembayaran()`:** Didefinisikan ulang di `PembayaranDP` (menghitung 50%) dan `PembayaranLunas` (menghitung 100%).
 
-### 3. Condition (Percabangan)
+### C. Condition (Percabangan)
 Penggunaan logika percabangan untuk mengontrol alur eksekusi:
 * **`if-else`:** Digunakan pada validasi ID duplikat, pengecekan kuota slot `isSlotFull()`, penentuan jenis lisensi, hingga pengecekan opsi layanan *Express*.
 * **`switch-case` / `switch expression`:** Digunakan saat menentukan nama paket gaya gambar berdasarkan pilihan angka pengguna (`case 1 -> "Lineart"`, `case 2 -> "Chibi"`, dst).
 
-### 4. Looping (Perulangan)
+### D. Looping (Perulangan)
 Penggunaan struktur iterasi dalam mengolah data:
 * **`for` / `for-each`:** Digunakan dalam `CommisionService` untuk melakukan iterasi pencarian ID unik pada `daftarPesanan`, menampilkan seluruh rincian transaksi pada daftar pesanan, serta menghitung total akumulasi pendapatan pada rekapitulasi.
 * **`while`:** Digunakan pada proses validasi input angka pilihan paket agar pengguna terus diinstruksikan menginputkan pilihan jika input belum valid.
@@ -69,8 +69,6 @@ Alur sistem ini dirancang untuk mensimulasikan proses bisnis manajemen komisi ga
 +---------------------------+
 ```
 
-### Tahapan Alur Kerja Sistem Secara Rinci
-
 #### 1. Tahap Penerimaan & Pendataan Pesanan (*Order Entry*)
 * **Input Data Klien:** Sistem meminta informasi identitas dasar seperti nama klien dan rincian kontak.
 * **Spesifikasi Karya:** Klien/seniman memasukkan spesifikasi gambar yang dipesan, meliputi:
@@ -89,7 +87,7 @@ Alur sistem ini dirancang untuk mensimulasikan proses bisnis manajemen komisi ga
 * Sistem menginisialisasi slot yang tersedia, jika slot sudah habis maka pesanan akan ditolak.
 
 #### 5. Tahap Finalisasi & Pelaporan (*Completion & Summary*)
-* **Rekapitulasi Sistem:** Sistem menyajikan laporan komprehensif berisi daftar seluruh transaksi, rincian pesanan, total biaya yang diperoleh, serta ringkasan status pengerjaan untuk keperluan pencatatan keuangan dan manajemen seniman.
+* **Rekapitulasi Sistem:** Sistem menyajikan laporan komprehensif berisi daftar seluruh transaksi, rincian pesanan, total biaya yang diperoleh untuk keperluan pencatatan keuangan dan manajemen seniman.
 
 ---
 
@@ -144,15 +142,39 @@ main
 
 ### 2. Tangkapan Layar Output Program (Screenshots)
 
-> ⚠️ **[CATATAN LOKASI GAMBAR]**: Letakkan tangkapan layar output sistem pada folder `docs/`.
+- Menu Utama & Input Data Pesanan
 
-#### A. Menu Utama & Input Data Pesanan
-* *Filename:* `docs/screenshot-menu.png`
-* *Deskripsi Gambar:* Menampilkan antarmuka navigasi utama serta proses pengisian data komisi dan spesifikasi gambar dari klien.
+  <img width="600" alt="image" src="https://github.com/user-attachments/assets/50d47227-7f9c-482e-b455-51075791066c" />
 
-#### B. Pelacakan Status & Rekap Biaya
-* *Filename:* `docs/screenshot-output.png`
-* *Deskripsi Gambar:* Menampilkan tabel/daftar seluruh komisi yang terdaftar, hasil kalkulasi biaya otomatis, dan status progres pengerjaan terkini.
+  *Deskripsi Gambar:* Menampilkan antarmuka yang terdapat 4 menu, yaitu Tambah Pesanan Baru, Lihat Daftar Pesanan, Lihat Rekap Pendapatan, dan Keluar.
+
+- Menu 1: Tambah Pesanan  
+
+  <img width="600" alt="image" src="https://github.com/user-attachments/assets/9b07cbf5-44e9-4d95-b496-2e3be67448ec" />
+
+  *Deskripsi Gambar:* Menampilkan proses penginputan data pesanan baru.
+
+  <img width="600" height="311" alt="image" src="https://github.com/user-attachments/assets/4e101aaf-d8c0-4507-acd7-421a88e4eecb" />
+
+  *Deskripsi Gambar:* Setelah pesanan baru berhasil di-inputkan, sistem akan mencetak output berupa invoice yang berisi data pesanan serta total tagihan pembayaran.
+
+- Menu 2: Tambah Pesanan  
+
+  <img width="600" alt="image" src="https://github.com/user-attachments/assets/64cfcffa-980d-42d1-a445-3b7930ae2772" />
+
+  *Deskripsi Gambar:* Menampilkan seluruh data pesanan, termasuk status bayar dan total nominal yang harus dibayar.
+
+- Menu 3: Rekap Pendapatan 
+
+  <img width="600" alt="image" src="https://github.com/user-attachments/assets/fb6a5262-d50e-41d2-b44c-a340e3219798" />
+
+  *Deskripsi Gambar:* Menampilkan total pendapatan selama 1 batch, meliputi pembayran secara DP maupun lunas. Serta memberikan estimasi pendapatan (jika semua sudah lunas).
+
+- Menu 4: Keluar 
+
+  <img width="600" alt="image" src="https://github.com/user-attachments/assets/16a5f2a4-7858-4288-88b5-3d2fa53d2a1c" />
+
+  *Deskripsi Gambar:* Menampilkan proses keluar dari sistem untuk mengakhiri proses output.
 
 ---
 
